@@ -7,10 +7,12 @@ import messageRoutes from "./routes/messageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
+import { app , server } from "./socket/socket.js";
+
 
 dotenv.config(); // Load environment variables from .env file
 
-const app = express(); // Create an Express server
+
 const PORT = process.env.PORT || 5000; // Use port from env file, else default to 5000
 
 // Setting up middleware
@@ -23,7 +25,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 
 // Start the server and connect to MongoDB
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     connectToMongoDB(); // Connect to the MongoDB database
     console.log(`Listening on port ${PORT}`); // Log the port number
 });
